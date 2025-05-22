@@ -28,8 +28,8 @@ if page == "🏠 Home":
 elif page == "🔍 Customer Segmentation":
     st.title("🔍 Predict Customer Segment")
 
-    model = joblib.load(r"C:\Users\hp\Desktop\Seg\kmeans_model.pkl")
-    scaler = joblib.load(r"C:\Users\hp\Desktop\Seg\scaler.pkl")
+    model = joblib.load(r"C:\Users\hp\Desktop\ML_EYoth\kmeans_model.pkl")
+    scaler = joblib.load(r"C:\Users\hp\Desktop\ML_EYoth\scaler.pkl")
 
     cluster_names = {
         0: "Loyal Premium Customers",
@@ -65,7 +65,7 @@ elif page == "🔍 Customer Segmentation":
 elif page == "📈 Sales Forecasting":
     st.title("📈 Daily Sales Forecast")
 
-    model = joblib.load(r"C:\Users\hp\Desktop\Seg\sales_forecast_model.pkl")
+    model = joblib.load(r"C:\Users\hp\Desktop\ML_EYoth\sales_forecast_model.pkl")
     n_days = st.slider("Select the number of days to forecast:", 7, 90, 30)
 
     future = model.make_future_dataframe(periods=n_days, freq='D')
