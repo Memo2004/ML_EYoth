@@ -1,7 +1,9 @@
 import streamlit as st
-import joblib
 import numpy as np
-import pandas as pd
+import joblib
+import os
+from pathlib import Path
+
 from prophet.plot import plot_plotly
 
 # --- Sidebar Navigation ---
@@ -26,10 +28,21 @@ if page == "🏠 Home":
 
 # --- Customer Segmentation ---
 elif page == "🔍 Customer Segmentation":
+    
     st.title("🔍 Predict Customer Segment")
+    project_root = Path(__file__).parent  
+    model1_path = project_root / 'kmeans_model.pkl'
+    # Load the trained model
+    with open(model1_path, 'rb') as f:
+        model = joblib.load(f)
+ 
+    scaler_path = project_root / 'scaler.pkl'
+    # Load the trained model
+    with open(scaler_path, 'rb') as f:
+        scaler = joblib.load(f)
 
-    model = joblib.load(r"C:\Users\hp\Desktop\ML_EYoth\kmeans_model.pkl")
-    scaler = joblib.load(r"C:\Users\hp\Desktop\ML_EYoth\scaler.pkl")
+    #model = joblib.load(r"C:\Users\hp\Desktop\ML_EYoth\kmeans_model.pkl")
+    #scaler = joblib.load(r"C:\Users\hp\Desktop\ML_EYoth\scaler.pkl")
 
     cluster_names = {
         0: "Loyal Premium Customers",
@@ -64,8 +77,13 @@ elif page == "🔍 Customer Segmentation":
 # --- Sales Forecasting ---
 elif page == "📈 Sales Forecasting":
     st.title("📈 Daily Sales Forecast")
+    
+    project_root = Path(__file__).parent  
+    model2_path = project_root / 'sales_forecast_model.pkl'
+    # Load the trained model
+    with open(model2_path, 'rb') as f:
+        model = joblib.load(f)
 
-    model = joblib.load(r"C:\Users\hp\Desktop\ML_EYoth\sales_forecast_model.pkl")
     n_days = st.slider("Select the number of days to forecast:", 7, 90, 30)
 
     future = model.make_future_dataframe(periods=n_days, freq='D')
